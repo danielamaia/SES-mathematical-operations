@@ -5,6 +5,8 @@
  */
 package pt.up.feup.mesw.ses;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 
@@ -14,7 +16,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class MathematicalOperationsSessionBean implements MathematicalOperationsSessionBeanRemote {
-
+    private ArrayList<String> history = new ArrayList();
     @Override
     @RolesAllowed({"high", "medium", "low"})
     public double squareRoot(double x) {
@@ -46,5 +48,16 @@ public class MathematicalOperationsSessionBean implements MathematicalOperations
         return Math.log(y) / Math.log(x);
 
         //logb x = log kx/log k b
+    }
+
+    @Override
+    public void saveToHistory(String x, String y, String operation) {
+        operation = operation + " " + x + " " + y;
+        history.add(operation);
+    }
+
+    @Override
+    public ArrayList<String> getHistory() {
+        return history;
     }
 }

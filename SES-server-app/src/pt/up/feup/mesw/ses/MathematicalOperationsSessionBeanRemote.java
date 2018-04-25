@@ -5,6 +5,7 @@
  */
 package pt.up.feup.mesw.ses;
 
+import java.util.ArrayList;
 import javax.ejb.Remote;
 
 /**
@@ -21,5 +22,9 @@ public interface MathematicalOperationsSessionBeanRemote {
     public double powerExponent(double base, double exponent);
 
     public double logarithmGivenBase(double x, double y);
+    
+    public void saveToHistory(String x, String y, String operation);
+    
+    public ArrayList<String> getHistory();
 
 }
