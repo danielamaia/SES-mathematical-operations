@@ -8,7 +8,6 @@ package sesmathematicaloperations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.ejb.EJB;
-import org.apache.jasper.tagplugins.jstl.ForEach;
 import pt.up.feup.mesw.ses.MathematicalOperationsSessionBeanRemote;
 
 /**
@@ -144,7 +143,7 @@ public class Main extends javax.swing.JFrame {
             double result = mathematicalOperationsSessionBean.squareRoot(first_operator);
             resultLabel.setText(Double.toString(result));
             xInput.setText(Double.toString(result));
-            mathematicalOperationsSessionBean.saveToHistory(String.valueOf(first_operator), null, "square root");
+            mathematicalOperationsSessionBean.saveToHistory(String.valueOf(first_operator), "", "square root", String.valueOf(result));
             writeToHistoryPane();
         } catch (Exception ex) {
             resultLabel.setText("Error! " + Arrays.toString(ex.getStackTrace()));
@@ -278,7 +277,8 @@ public class Main extends javax.swing.JFrame {
         history.setText("");
         String operations = "";
         for (String operation : operationHistory) {
-            operations.concat(operation + "\n");
+            // todo este concat tem erro
+            operations = operations.concat(operation + "\n");
         }
         history.setText(operations);
     }

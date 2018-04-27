@@ -23,7 +23,7 @@ public interface MathematicalOperationsSessionBeanRemote {
 
     public double logarithmGivenBase(double x, double y);
     
-    public void saveToHistory(String x, String y, String operation);
+    public void saveToHistory(String x, String y, String operation, String result);
     
     public ArrayList<String> getHistory();
 

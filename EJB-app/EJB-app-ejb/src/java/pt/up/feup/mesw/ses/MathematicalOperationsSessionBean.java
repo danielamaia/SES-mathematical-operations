@@ -51,8 +51,8 @@ public class MathematicalOperationsSessionBean implements MathematicalOperations
     }
 
     @Override
-    public void saveToHistory(String x, String y, String operation) {
-        operation = operation + " " + x + " " + y;
+    public void saveToHistory(String x, String y, String operation, String result) {
+        operation = operation + " " + x + " " + y + " = " + result;
         history.add(operation);
     }
 
