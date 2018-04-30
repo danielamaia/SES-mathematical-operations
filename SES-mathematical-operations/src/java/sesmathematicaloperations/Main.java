@@ -6,8 +6,10 @@
 package sesmathematicaloperations;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import javax.ejb.EJB;
 import pt.up.feup.mesw.ses.MathematicalOperationsSessionBeanRemote;
 
@@ -17,7 +19,7 @@ import pt.up.feup.mesw.ses.MathematicalOperationsSessionBeanRemote;
  */
 public class Main extends javax.swing.JFrame {
     
-    public static final DecimalFormat NO_TRAILING_ZEROS = new DecimalFormat("0.#");
+    public static final DecimalFormat NO_TRAILING_ZEROS = new DecimalFormat("0.#", new DecimalFormatSymbols(Locale.ENGLISH));
 
     @EJB
     private static MathematicalOperationsSessionBeanRemote mathematicalOperationsSessionBean;
