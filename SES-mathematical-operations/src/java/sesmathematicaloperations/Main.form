@@ -23,9 +23,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -39,11 +39,13 @@
                           <Component id="powerBtn" alignment="0" max="32767" attributes="0"/>
                           <Component id="cubicRootBtn" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="resultLabel" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="resultLabel" pref="140" max="32767" attributes="0"/>
+                      <Component id="useResult" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,14 +53,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="109" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="108" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="xInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="yInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="resultLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="useResult" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="sqrRootBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cubicRootBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -130,8 +133,16 @@
     </Container>
     <Component class="javax.swing.JLabel" name="resultLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="useResult">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="use result"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useResultActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

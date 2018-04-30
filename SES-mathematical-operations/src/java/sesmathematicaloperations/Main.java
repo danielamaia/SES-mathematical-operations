@@ -5,6 +5,7 @@
  */
 package sesmathematicaloperations;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.ejb.EJB;
@@ -15,6 +16,8 @@ import pt.up.feup.mesw.ses.MathematicalOperationsSessionBeanRemote;
  * @author Daniela
  */
 public class Main extends javax.swing.JFrame {
+    
+    public static final DecimalFormat NO_TRAILING_ZEROS = new DecimalFormat("0.#");
 
     @EJB
     private static MathematicalOperationsSessionBeanRemote mathematicalOperationsSessionBean;
@@ -24,6 +27,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        mathematicalOperationsSessionBean.deleteHistory();
     }
 
 
@@ -39,6 +43,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         history = new javax.swing.JTextArea();
         resultLabel = new javax.swing.JLabel();
+        useResult = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,15 +85,22 @@ public class Main extends javax.swing.JFrame {
         history.setRows(5);
         jScrollPane1.setViewportView(history);
 
-        resultLabel.setText("jLabel1");
+        resultLabel.setText(" ");
+
+        useResult.setText("use result");
+        useResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                useResultActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -100,21 +112,24 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(yInput)
                             .addComponent(powerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cubicRootBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(resultLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
+                        .addComponent(useResult)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(xInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(yInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(useResult))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sqrRootBtn)
                     .addComponent(cubicRootBtn))
@@ -137,13 +152,13 @@ public class Main extends javax.swing.JFrame {
             return;
         }
         double first_operator = Double.parseDouble(xInput.getText());
-        xInput.setText("\u221A" + Double.toString(first_operator));
+        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(first_operator));
         xInput.setText("");
         try {
             double result = mathematicalOperationsSessionBean.squareRoot(first_operator);
-            resultLabel.setText(Double.toString(result));
-            xInput.setText(Double.toString(result));
-            mathematicalOperationsSessionBean.saveToHistory(String.valueOf(first_operator), "", "square root", String.valueOf(result));
+            resultLabel.setText(NO_TRAILING_ZEROS.format(result));
+            xInput.setText("");
+            mathematicalOperationsSessionBean.saveToHistory(NO_TRAILING_ZEROS.format(first_operator), "", "square root", NO_TRAILING_ZEROS.format(result));
             writeToHistoryPane();
         } catch (Exception ex) {
             resultLabel.setText("Error! " + Arrays.toString(ex.getStackTrace()));
@@ -155,12 +170,14 @@ public class Main extends javax.swing.JFrame {
             return;
         }
         double first_operator = Double.parseDouble(xInput.getText());
-        xInput.setText("\u221A" + Double.toString(first_operator));
+        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(first_operator));
         xInput.setText("");
         try {
             double result = mathematicalOperationsSessionBean.cubicRoot(first_operator);
-            resultLabel.setText(Double.toString(result));
-            xInput.setText(Double.toString(result));
+            resultLabel.setText(NO_TRAILING_ZEROS.format(result));
+            xInput.setText("");
+            mathematicalOperationsSessionBean.saveToHistory(NO_TRAILING_ZEROS.format(first_operator), "", "cubic root", NO_TRAILING_ZEROS.format(result));
+            writeToHistoryPane();
         } catch (Exception ex) {
             resultLabel.setText("Error! " + Arrays.toString(ex.getStackTrace()));
         }
@@ -174,15 +191,17 @@ public class Main extends javax.swing.JFrame {
         double base = Double.parseDouble(xInput.getText());
         double value = Double.parseDouble(yInput.getText());
 
-        xInput.setText("\u221A" + Double.toString(base));
+        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
         xInput.setText("");
 
-        yInput.setText("\u221A" + Double.toString(base));
+        yInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
         yInput.setText("");
         try {
             double result = mathematicalOperationsSessionBean.logarithmGivenBase(base, value);
-            resultLabel.setText(Double.toString(result));
-            xInput.setText(Double.toString(result));
+            resultLabel.setText(NO_TRAILING_ZEROS.format(result));
+            xInput.setText("");
+            mathematicalOperationsSessionBean.saveToHistory(NO_TRAILING_ZEROS.format(base), NO_TRAILING_ZEROS.format(value), "logarithm", NO_TRAILING_ZEROS.format(result));
+            writeToHistoryPane();
         } catch (Exception ex) {
             resultLabel.setText("Error! " + Arrays.toString(ex.getStackTrace()));
         }
@@ -196,19 +215,25 @@ public class Main extends javax.swing.JFrame {
         double base = Double.parseDouble(xInput.getText());
         double exponent = Double.parseDouble(yInput.getText());
 
-        xInput.setText("\u221A" + Double.toString(base));
+        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
         xInput.setText("");
 
-        yInput.setText("\u221A" + Double.toString(base));
+        yInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
         yInput.setText("");
         try {
             double result = mathematicalOperationsSessionBean.powerExponent(base, exponent);
-            resultLabel.setText(Double.toString(result));
-            xInput.setText(Double.toString(result));
+            resultLabel.setText(NO_TRAILING_ZEROS.format(result));
+            xInput.setText("");
+            mathematicalOperationsSessionBean.saveToHistory(NO_TRAILING_ZEROS.format(base), NO_TRAILING_ZEROS.format(exponent), "power", NO_TRAILING_ZEROS.format(result));
+            writeToHistoryPane();
         } catch (Exception ex) {
             resultLabel.setText("Error! " + Arrays.toString(ex.getStackTrace()));
         }
     }//GEN-LAST:event_powerBtnActionPerformed
+
+    private void useResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useResultActionPerformed
+        xInput.setText(resultLabel.getText());
+    }//GEN-LAST:event_useResultActionPerformed
 
     private String formatNumber(String text) {
 
@@ -229,6 +254,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton powerBtn;
     private javax.swing.JLabel resultLabel;
     private javax.swing.JButton sqrRootBtn;
+    private javax.swing.JButton useResult;
     private javax.swing.JTextField xInput;
     private javax.swing.JTextField yInput;
     // End of variables declaration//GEN-END:variables

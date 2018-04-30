@@ -26,5 +26,7 @@ public interface MathematicalOperationsSessionBeanRemote {
     public void saveToHistory(String x, String y, String operation, String result);
     
     public ArrayList<String> getHistory();
+    
+    public void deleteHistory();
 
 }

@@ -60,4 +60,8 @@ public class MathematicalOperationsSessionBean implements MathematicalOperations
     public ArrayList<String> getHistory() {
         return history;
     }
+    
+    public void deleteHistory() {
+        history.removeAll(history);
+    }
 }
