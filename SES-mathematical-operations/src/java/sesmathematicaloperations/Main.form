@@ -39,7 +39,7 @@
                           <Component id="powerBtn" alignment="0" max="32767" attributes="0"/>
                           <Component id="cubicRootBtn" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="75" max="32767" attributes="0"/>
                       <Component id="resultLabel" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="useResult" min="-2" max="-2" attributes="0"/>
