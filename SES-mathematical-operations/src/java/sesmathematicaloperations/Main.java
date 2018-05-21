@@ -155,10 +155,11 @@ public class Main extends javax.swing.JFrame {
         if (xInput.getText() == null || xInput.getText().length() == 0 || this.formatNumber(xInput.getText()) == null) {
             return;
         }
-        double first_operator = Double.parseDouble(xInput.getText());
-        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(first_operator));
-        xInput.setText("");
+        
         try {
+            double first_operator = Double.parseDouble(xInput.getText());
+            xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(first_operator));
+            xInput.setText("");
             double result = mathematicalOperationsSessionBean.squareRoot(first_operator);
             resultLabel.setText(NO_TRAILING_ZEROS.format(result));
             xInput.setText("");
@@ -173,10 +174,11 @@ public class Main extends javax.swing.JFrame {
         if (xInput.getText() == null || xInput.getText().length() == 0 || this.formatNumber(xInput.getText()) == null) {
             return;
         }
-        double first_operator = Double.parseDouble(xInput.getText());
-        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(first_operator));
-        xInput.setText("");
+        
         try {
+            double first_operator = Double.parseDouble(xInput.getText());
+            xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(first_operator));
+            xInput.setText("");
             double result = mathematicalOperationsSessionBean.cubicRoot(first_operator);
             resultLabel.setText(NO_TRAILING_ZEROS.format(result));
             xInput.setText("");
@@ -192,20 +194,29 @@ public class Main extends javax.swing.JFrame {
                 || yInput.getText() == null || yInput.getText().length() == 0 || this.formatNumber(yInput.getText()) == null) {
             return;
         }
-        double base = Double.parseDouble(xInput.getText());
-        double value = Double.parseDouble(yInput.getText());
-
-        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
-        xInput.setText("");
-
-        yInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
-        yInput.setText("");
+        
         try {
-            double result = mathematicalOperationsSessionBean.logarithmGivenBase(base, value);
-            resultLabel.setText(NO_TRAILING_ZEROS.format(result));
+            double base = Double.parseDouble(xInput.getText());
+            double value = Double.parseDouble(yInput.getText());
+
+            xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
             xInput.setText("");
-            mathematicalOperationsSessionBean.saveToHistory(NO_TRAILING_ZEROS.format(base), NO_TRAILING_ZEROS.format(value), "logarithm", NO_TRAILING_ZEROS.format(result));
-            writeToHistoryPane();
+
+            yInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
+            yInput.setText("");
+            
+            double result;
+            if(base==1){
+                resultLabel.setText("");
+                mathematicalOperationsSessionBean.saveToHistory("", "", "logarithm's base can't be 1", "error");
+                writeToHistoryPane();
+            } else {
+                result = mathematicalOperationsSessionBean.logarithmGivenBase(base, value);
+                resultLabel.setText(NO_TRAILING_ZEROS.format(result));                
+                mathematicalOperationsSessionBean.saveToHistory(NO_TRAILING_ZEROS.format(base), NO_TRAILING_ZEROS.format(value), "logarithm", NO_TRAILING_ZEROS.format(result));
+                writeToHistoryPane();
+            }
+            
         } catch (Exception ex) {
             resultLabel.setText("Error! " + Arrays.toString(ex.getStackTrace()));
         }
@@ -216,15 +227,17 @@ public class Main extends javax.swing.JFrame {
                 || yInput.getText() == null || yInput.getText().length() == 0 || this.formatNumber(yInput.getText()) == null) {
             return;
         }
-        double base = Double.parseDouble(xInput.getText());
-        double exponent = Double.parseDouble(yInput.getText());
-
-        xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
-        xInput.setText("");
-
-        yInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
-        yInput.setText("");
+        
         try {
+            double base = Double.parseDouble(xInput.getText());
+            double exponent = Double.parseDouble(yInput.getText());
+
+            xInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
+            xInput.setText("");
+
+            yInput.setText("\u221A" + NO_TRAILING_ZEROS.format(base));
+            yInput.setText("");
+            
             double result = mathematicalOperationsSessionBean.powerExponent(base, exponent);
             resultLabel.setText(NO_TRAILING_ZEROS.format(result));
             xInput.setText("");
